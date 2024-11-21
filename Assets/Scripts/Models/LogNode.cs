@@ -5,6 +5,10 @@ using UnityEngine;
 public class LogNode
 {
     /// <summary>
+    /// 节点ID
+    /// </summary>
+    public int Id;
+    /// <summary>
     /// The name of the node
     /// </summary>
     public string Name;
@@ -21,7 +25,13 @@ public class LogNode
     /// The discovered status of the node
     /// </summary>
     public bool IsDiscovered;
+
+    /// <summary>
+    /// 日志节点在面板中的坐标
+    /// </summary>
     public System.Numerics.Vector2 Position;
     
 }
-
+public class LogLine {
+    public System.Numerics.Vector2 Start, End;
+}

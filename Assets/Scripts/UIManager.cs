@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject SpaceShipLog;
 
-    bool _isDraggingSpaceShipLog = true;
+
+    public bool IsDraggingSpaceShipLog = true;
 
 
     #region UI组件
@@ -58,10 +59,10 @@ public class UIManager : MonoBehaviour
 
     }
 
-
+    
     void DragSpaceShipLog()
     {
-        if (_isDraggingSpaceShipLog)
+        if (IsDraggingSpaceShipLog)
         {
             // when mouse is clicked and dragged on the screen, move the spaceship log
 
@@ -106,4 +107,7 @@ public class UIManager : MonoBehaviour
         }
 
     }
+
+
+
 }

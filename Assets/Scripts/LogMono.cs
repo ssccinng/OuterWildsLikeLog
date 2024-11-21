@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
-// 给日志按钮提供功能的脚本
-public class LogButtonScript : MonoBehaviour
-{
-    public Image LogBackGround;
-    public Text Title;
 
+public class LogMono : MonoBehaviour
+{
+    /// <summary>
+    /// 是否可以被拖动
+    /// </summary>
+    public bool CanDrag;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
