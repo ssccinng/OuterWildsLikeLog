@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+// 还有颜色，或是分组
+
 public class LogNode
 {
     /// <summary>
@@ -22,7 +24,7 @@ public class LogNode
     public List<LogNode> Connections;
 
     /// <summary>
-    /// The discovered status of the node
+    /// 是否已经被发现了 The discovered status of the node
     /// </summary>
     public bool IsDiscovered;
 
@@ -32,6 +34,27 @@ public class LogNode
     public System.Numerics.Vector2 Position;
     
 }
-public class LogLine {
-    public System.Numerics.Vector2 Start, End;
+
+public class LogCirticalMessage
+{
+    // 是否需要不同的触发点？
+   public bool isNew;
 }
+
+
+// public class LogCirticalNode : LogNode
+// {
+//     /// <summary>
+//     /// The critical value of the node
+//     /// </summary>
+//     public float CriticalValue;
+// }
+
+
+public record LogLine {
+    // public System.Numerics.Vector2 Start, End;
+
+    // Log的起点和终点节点
+    public int LogIdStart, LogIdEnd;
+}
+

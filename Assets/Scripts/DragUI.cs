@@ -11,6 +11,7 @@ public class DragUI : MonoBehaviour, IPointerClickHandler,
     public event Action<PointerEventData> LeftClick, RightClick, DoubleLeftClick, Click;
     public void OnPointerClick(PointerEventData eventData)
     {
+
     }
 
     public void OnPointerDown(PointerEventData eventData)

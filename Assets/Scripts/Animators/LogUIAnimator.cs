@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-public class UIAnimator : MonoBehaviour
+public class LogUIAnimator : MonoBehaviour
 {
     public static void AnimateScaleIn(GameObject uiElement, float duration = 0.5f)
     {
