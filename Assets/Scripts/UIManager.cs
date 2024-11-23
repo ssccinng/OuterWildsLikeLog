@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Newtonsoft.Json;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class UIManager : MonoBehaviour
 
 
     public GameObject SpaceShipLog;
+    public Animator animator; 
 
+    // public GameManager LogPanel;
+    public TextMeshProUGUI LogTitleInputField;
 
     public bool IsDraggingSpaceShipLog = true;
 
@@ -35,6 +39,7 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // animator.SetTrigger("SidePanelInTrigger");
         SaveButton.onClick.AddListener(() =>
         {
             // Save the log
@@ -46,6 +51,8 @@ public class UIManager : MonoBehaviour
                 IsDiscovered = false,
                 Position = new (0, 0)
             };
+
+            new LogPanelGameObject().SetTitle(LogTitleInputField.text);
 
             var json = JsonConvert.SerializeObject(logNode);
             Debug.Log(json);
@@ -91,7 +98,7 @@ public class UIManager : MonoBehaviour
                     }
                     else
                     { // mutilplier < 1
-                        if (scale.x < 0.5)
+                        if (scale.x < 0.3)
                         {
                             return scale;
                         }

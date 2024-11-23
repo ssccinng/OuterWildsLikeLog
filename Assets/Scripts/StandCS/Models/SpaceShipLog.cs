@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Unity.Mathematics;
 public struct LineInfo
 {
     public Vector2 Start, End;
@@ -9,10 +10,15 @@ public struct LineInfo
 public struct LineImageInfo
 {
     public static readonly int Height = 10;
-    public int Width;
+    public float Width;
 
     public Vector2 Position;
     public float RotationZ;
+
+    /// <summary>
+    /// 箭头所在位置
+    /// </summary>
+    public Vector2 ArrowPosition;
 }
 
 public class SpaceShipLog
@@ -28,6 +34,12 @@ public class SpaceShipLog
 
 public static class LogHelper
 {
+
+    public static void CreateNode(string name, string description)
+    {
+        // Create a new node
+    }
+
     public static LogNode? GetNodeById(IEnumerable<LogNode> logNodes, int id) 
     {
         return logNodes.FirstOrDefault(s => s.Id == id);
@@ -55,7 +67,25 @@ public static class LogHelper
             End = endNode.Position,
         };
     }
+    // todo: 还需要计算箭头在哪
+    public static LineImageInfo GetLineImageInfo(Vector2 start, Vector2 end) {
+        return new LineImageInfo {
+             Position = start,
+             Width = Vector2.Distance(start, end),
 
+
+        };
+
+    }
+public static LineImageInfo GetLineImageInfo(LogNode start, LogNode end) {
+        return new LineImageInfo {
+            //  Position = start,
+            //  Width = Vector2.Distance(start, end),
+
+             
+        };
+
+    }
     
 
 }

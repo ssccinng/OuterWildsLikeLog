@@ -33,6 +33,11 @@ public class LogNode
     /// </summary>
     public System.Numerics.Vector2 Position;
     
+    /// <summary>
+    /// 日志节点的缩放比例
+    /// </summary>
+    public float Scale;
+    
 }
 
 public class LogCirticalMessage
@@ -56,5 +61,8 @@ public record LogLine {
 
     // Log的起点和终点节点
     public int LogIdStart, LogIdEnd;
+
+    // 关联信息
+    public string Message;
 }
 

@@ -67,17 +67,17 @@
   <ItemGroup>
     <Compile Include="Assets\LeanTween\Framework\LeanTest.cs" />
     <Compile Include="Assets\LeanTween\Testing\TestingDescr.cs" />
-    <Compile Include="Assets\Scripts\Models\SpaceShipLog.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralBasics2d.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\TestingZLegacy.cs" />
     <Compile Include="Assets\LeanTween\Testing\TestingSceneSwitching.cs" />
+    <Compile Include="Assets\Scripts\StandCS\Models\LogGroup.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralSequencer.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathBezier2d.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplinePerformance.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralEasingTypes.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\LeanTween\Testing\FollowingTests.cs" />
-    <Compile Include="Assets\Scripts\Models\LogGroup.cs" />
+    <Compile Include="Assets\Scripts\StandCS\Models\LoggerSystem.cs" />
     <Compile Include="Assets\Scripts\LogMono.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\TestingUnitTests.cs" />
     <Compile Include="Assets\LeanTween\Testing\TestingIssue2.cs" />
@@ -90,13 +90,14 @@
     <Compile Include="Assets\LeanTween\Testing\PerformanceTests.cs" />
     <Compile Include="Assets\Scripts\Animators\LogUIAnimator.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanTween.cs" />
-    <Compile Include="Assets\Scripts\Models\LoggerSystem.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanSmooth.cs" />
     <Compile Include="Assets\LeanTween\Testing\TestingMaxTweens.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralUISpace.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplines.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
+    <Compile Include="Assets\Scripts\StandCS\SystemStateManager.cs" />
     <Compile Include="Assets\Scripts\NewScriptableObjectScript.cs" />
+    <Compile Include="Assets\Scripts\StandCS\Models\LogPanelGameObject.cs" />
     <Compile Include="Assets\Scripts\LogButtonScript.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplineTrack.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSpline.cs" />
@@ -107,13 +108,14 @@
     <Compile Include="Assets\LeanTween\Framework\LeanTweenExt.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanAudio.cs" />
     <Compile Include="Assets\LeanTween\Framework\LTDescrOptional.cs" />
+    <Compile Include="Assets\Scripts\StandCS\Models\LogNode.cs" />
     <Compile Include="Assets\LeanTween\Testing\TestingIssue.cs" />
     <Compile Include="Assets\LeanTween\Testing\TestingOptionalCancel.cs" />
     <Compile Include="Assets\LeanTween\Framework\LTDescr.cs" />
     <Compile Include="Assets\LeanTween\Testing\Testing248.cs" />
     <Compile Include="Assets\LeanTween\Testing\TestingColorTweening.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralSimpleUI.cs" />
-    <Compile Include="Assets\Scripts\Models\LogNode.cs" />
+    <Compile Include="Assets\Scripts\StandCS\Models\SpaceShipLog.cs" />
     <Compile Include="Assets\LeanTween\Testing\Testing243.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathBezier.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -129,6 +131,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\LeanTween\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Resources\Shader\UIOutlineGlow.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\LeanTween\License.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
@@ -147,6 +150,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Packages\Newtonsoft.Json.13.0.3\lib\netstandard2.0\Newtonsoft.Json.xml" />
+    <None Include="Assets\Resources\Shader\UIGlowEffect.shader" />
     <None Include="Assets\words.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />

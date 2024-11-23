@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragUI : MonoBehaviour, IPointerClickHandler, 
+public class DragUI : MonoBehaviour, IPointerClickHandler,
     IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerEnterHandler
 {
     bool gx = false;
@@ -13,11 +13,23 @@ public class DragUI : MonoBehaviour, IPointerClickHandler,
     {
 
     }
-
+    private Vector2 offset;
     public void OnPointerDown(PointerEventData eventData)
     {
-        UIManager.Instance.IsDraggingSpaceShipLog = false;
-        gx = true;
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+
+
+            UIManager.Instance.IsDraggingSpaceShipLog = false;
+            gx = true;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rectTransform,
+            eventData.position,
+            eventData.pressEventCamera,
+            out offset
+        );
+        }
+
     }
     RectTransform rectTransform;
     private void Start()
@@ -35,23 +47,23 @@ public class DragUI : MonoBehaviour, IPointerClickHandler,
 
             Vector2 mousePosition = Input.mousePosition;
 
-        // 将鼠标位置转换为 UI 元素的局部位置
-        Vector2 localPosition;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rectTransform.parent.GetComponent<RectTransform>(), 
-            mousePosition, 
-            null, // Camera 参数，传 null 代表使用屏幕坐标
-            out localPosition
-        );
+            // 将鼠标位置转换为 UI 元素的局部位置
+            Vector2 localPosition;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rectTransform.parent.GetComponent<RectTransform>(),
+                mousePosition,
+                null, // Camera 参数，传 null 代表使用屏幕坐标
+                out localPosition
+            );
 
-        // 设置 UI 元素的 anchoredPosition
-        rectTransform.anchoredPosition = localPosition;
+            // 设置 UI 元素的 anchoredPosition
+            rectTransform.anchoredPosition = localPosition - offset;
 
         }
 
     }
 
-     bool resize = false;
+    bool resize = false;
 
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -78,7 +90,7 @@ public class DragUI : MonoBehaviour, IPointerClickHandler,
         float height = Screen.height / 2;
         if (Input.mousePosition.x < width)
         {
-            gameObject.GetComponent<RectTransform>().pivot 
+            gameObject.GetComponent<RectTransform>().pivot
                 = new Vector2(0, gameObject.GetComponent<RectTransform>().pivot.y);
         }
         else
