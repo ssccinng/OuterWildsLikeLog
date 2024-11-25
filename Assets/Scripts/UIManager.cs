@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 using Newtonsoft.Json;
 using TMPro;
+using System;
+using UnityEngine.Events;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class UIManager : MonoBehaviour
 
 
     public GameObject SpaceShipLog;
+    public GameObject LogPanelHud;
+    public GameObject LineHud;
     public Animator animator; 
 
     // public GameManager LogPanel;
@@ -20,7 +24,19 @@ public class UIManager : MonoBehaviour
 
     #region UI组件
     public Button SaveButton;
+    public Button TogglePanelButton;
     #endregion
+
+
+    #region 运行模式
+    public Toggle DragMode;
+    public Toggle LineMode;
+    public Toggle LookMode;
+
+    #endregion
+
+
+    bool panelExpanded = true;
 
 
     void Awake()
@@ -34,6 +50,33 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+
+    public UnityAction<bool> CheckModeChange(SystemMode mode) {
+        return mode switch {
+            SystemMode.LookMode => (b) => 
+            {
+                if (b) {
+                SystemStateManager.SystemMode = mode; DragMode.isOn = LineMode.isOn = false; 
+
+                }
+            // LookMode.isOn = true;
+            },
+            SystemMode.LineMode => (b) => 
+            {
+                if (b) {
+                SystemStateManager.SystemMode = mode; DragMode.isOn = LookMode.isOn = false; 
+                }
+            // LineMode.isOn = true;
+            },
+            _ => (b) => 
+            {
+                if (b) {
+                SystemStateManager.SystemMode = mode; LineMode.isOn = LookMode.isOn = false; 
+                }
+            // DragMode.isOn = true;
+            },
+        };
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,11 +95,29 @@ public class UIManager : MonoBehaviour
                 Position = new (0, 0)
             };
 
-            new LogPanelGameObject().SetTitle(LogTitleInputField.text);
+            new LogPanelGO().SetTitle(LogTitleInputField.text);
 
             var json = JsonConvert.SerializeObject(logNode);
             Debug.Log(json);
         });
+
+        TogglePanelButton.onClick.AddListener(() =>
+        {
+            if (panelExpanded)
+            {
+                animator.SetTrigger("SideOut");
+                panelExpanded = false;
+            }
+            else
+            {
+                animator.SetTrigger("SideIn");
+                panelExpanded = true;
+            }
+        });
+
+        DragMode.onValueChanged.AddListener(CheckModeChange(SystemMode.DragMode));
+        LineMode.onValueChanged.AddListener(CheckModeChange(SystemMode.LineMode));
+        LookMode.onValueChanged.AddListener(CheckModeChange(SystemMode.LookMode));
     }
 
     // Update is called once per frame
@@ -107,8 +168,8 @@ public class UIManager : MonoBehaviour
                 }
 
                 var newScale = GetNewScale(scale, mutilplier);
-
-                SpaceShipLog.transform.localScale = newScale;
+                 LeanTween.scale(SpaceShipLog, newScale, 0.1f).setEase(LeanTweenType.easeOutQuad);
+                // SpaceShipLog.transform.localScale = newScale;
             }
 
         }

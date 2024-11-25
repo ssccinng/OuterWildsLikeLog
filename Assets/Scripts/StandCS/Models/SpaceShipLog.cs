@@ -78,9 +78,14 @@ public static class LogHelper
 
     }
 public static LineImageInfo GetLineImageInfo(LogNode start, LogNode end) {
+    UnityEngine.Debug.Log($"start: {start.Position}, end: {end.Position}");
         return new LineImageInfo {
             //  Position = start,
             //  Width = Vector2.Distance(start, end),
+
+            Position = start.Position,
+            Width = Vector2.Distance(start.Position, end.Position),
+            RotationZ = math.atan2(end.Position.Y - start.Position.Y, end.Position.X - start.Position.X) * 180 / math.PI,
 
              
         };

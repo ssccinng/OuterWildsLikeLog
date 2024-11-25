@@ -42,7 +42,7 @@ public class DragUI : MonoBehaviour, IPointerClickHandler,
     {
 
 
-        if (gx)
+        if (gx && SystemStateManager.SystemMode == SystemMode.DragMode)
         {
 
             Vector2 mousePosition = Input.mousePosition;

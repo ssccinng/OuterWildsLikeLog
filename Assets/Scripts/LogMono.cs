@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,11 +17,72 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
     public TextMeshProUGUI LogTitle;
 
     public Image backGroundImage;
+    public Image InfoImage;
     public Outline backOutline;
+    public Outline selectedOutline;
+
+    public bool Selected = false;
+
+    public LogPanelGO LoglineGO;
+
+    Sprite ok ;
+    Sprite ques ;
+
+
+    RectTransform rectTransform;
+
+
+    private static List<LogMono> selectedLogs = new List<LogMono>();
 
     // public GameObject textMesh;
     public void OnPointerClick(PointerEventData eventData)
     {
+        // Debug.Log("OnPointerClick");
+          if (SystemStateManager.SystemMode == SystemMode.LineMode)
+        {
+            Selected = !Selected;
+            if (Selected)
+            {
+                selectedOutline.enabled = true;
+                selectedLogs.Add(this);
+            }
+            else
+            {
+                selectedOutline.enabled = false;
+                selectedLogs.Remove(this);
+            }
+
+            // 如果选中了两个日志UI，进行连线
+            if (selectedLogs.Count == 2)
+            {
+                DrawLineBetweenLogs(selectedLogs[0], selectedLogs[1]);
+                // 重置选中状态
+                selectedLogs[0].ResetSelected();
+                selectedLogs[1].ResetSelected();
+                selectedLogs.Clear();
+            }
+        }
+       
+
+    }
+
+    private void DrawLineBetweenLogs(LogMono log1, LogMono log2)
+    {
+        // 在这里实现连线逻辑
+        // 例如，可以使用LineRenderer组件来绘制连线
+
+        var line = new LoglineGO();
+
+        line.BindLogNodes(log1.LoglineGO, log2.LoglineGO);
+        
+    }
+
+    public void ResetSelected()
+    {
+        Selected = false;
+        selectedOutline.enabled = false;
+
+      
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -29,26 +92,54 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-                backOutline.enabled = false;
+        backOutline.enabled = false;
 
     }
-
+    bool isUnkown = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        ok = Resources.Load<Sprite>("Images/trueImg");
+        ques= Resources.Load<Sprite>("Images/Unknown");
         LogUIAnimator.AnimateScaleIn(gameObject, 0.5f);
 
-        LogMainButton.onClick.AddListener(() =>
-        {
-            LogUIAnimator.AnimateScaleIn(gameObject, 0.5f);
+        rectTransform = gameObject.GetComponent<RectTransform>();
 
+        LogMainButton.onClick.AddListener(async () =>
+        {
+            // LogUIAnimator.AnimateScaleIn(gameObject, 0.5f);
+
+            animator.SetTrigger("ImageOut");
+            await Task.Delay(500);
+            if (!isUnkown)
+            {
+                InfoImage.sprite = ques;
+                isUnkown = true;
+            }
+            else
+            {
+                InfoImage.sprite = ok;
+                isUnkown = false;
+            }
+            animator.SetTrigger("ImageIn");
         });
-        backOutline = backGroundImage.GetComponent<Outline>();
+        var outlines = backGroundImage.GetComponents<Outline>();
+        backOutline = outlines[0];
+        selectedOutline = outlines[1];
+
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    public void UpdateInfo() {
+
+        LoglineGO.LogNode.Position = new (rectTransform.localPosition.x, rectTransform.localPosition.y);
         
     }
 }
