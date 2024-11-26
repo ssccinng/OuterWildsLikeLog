@@ -23,7 +23,9 @@ public class UIManager : MonoBehaviour
 
 
     #region UI组件
+    public Button AddLogButton;
     public Button SaveButton;
+    public Button LoadButton;
     public Button TogglePanelButton;
     #endregion
 
@@ -82,24 +84,39 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SpaceShipLoggerSystem.GetSaves();
+        SpaceShipLoggerSystem.Create();
         // animator.SetTrigger("SidePanelInTrigger");
+        AddLogButton.onClick.AddListener(() =>
+        {
+            SpaceShipLoggerSystem.CreateNode(LogTitleInputField.text);
+            // Save the log
+            // var logNode = new LogNode
+            // {
+            //     Name = LogTitleInputField.text,
+            //     Description = "This is a node",
+            //     // Connections = new System.Collections.Generic.List<LogNode>(),
+            //     IsDiscovered = false,
+            //     Position = new (0, 0)
+            // };
+
+            // new LogNodeGO().Bind(logNode).SetTitle(LogTitleInputField.text);
+
+            // var json = JsonConvert.SerializeObject(logNode);
+            // Debug.Log(json);
+        });
+
         SaveButton.onClick.AddListener(() =>
         {
-            // Save the log
-            var logNode = new LogNode
-            {
-                Name = "Node1",
-                Description = "This is a node",
-                Connections = new System.Collections.Generic.List<LogNode>(),
-                IsDiscovered = false,
-                Position = new (0, 0)
-            };
+            SpaceShipLoggerSystem.Save("test");
+        }
+        );
 
-            new LogPanelGO().SetTitle(LogTitleInputField.text);
-
-            var json = JsonConvert.SerializeObject(logNode);
-            Debug.Log(json);
-        });
+        LoadButton.onClick.AddListener(() =>
+        {
+            SpaceShipLoggerSystem.Load("test");
+        }
+        );
 
         TogglePanelButton.onClick.AddListener(() =>
         {

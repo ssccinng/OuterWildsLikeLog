@@ -4,6 +4,8 @@ public static class SystemStateManager
     public static SystemMode SystemMode = SystemMode.DragMode;
 
 
+    // 切换模式后要考虑做更多的事
+
 }
 
 

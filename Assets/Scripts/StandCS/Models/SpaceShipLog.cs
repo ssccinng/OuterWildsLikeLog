@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading;
 using Unity.Mathematics;
 public struct LineInfo
 {
@@ -23,8 +24,16 @@ public struct LineImageInfo
 
 public class SpaceShipLog
 {
+    static int _uniqueId = 0;
+    public static int GetUniqueId() => Interlocked.Increment(ref _uniqueId);
+    public static void ResetUniqueId() => _uniqueId = 0;
     // 日志组记录
     public List<LogGroup> LogGroups = new();
+
+
+
+
+    // 下面是动态生成出来的数据
 
     public List<LogNode> LogNodes = new();
 

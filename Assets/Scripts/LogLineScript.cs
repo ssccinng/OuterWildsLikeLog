@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class LogLineScript : MonoBehaviour, IPointerClickHandler, IPointerExitHandler, IPointerEnterHandler
 {
     bool selected = false;
-    public LoglineGO loglineGO;
+    public LogLineGO loglineGO;
     public Outline selectedOutline;
     public Outline backOutline;
     public Animator animator;

@@ -65,7 +65,6 @@
     <Analyzer Include="D:\UnityHub\Editor\6000.0.23f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\StandCS\Models\LogLineGO.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanTest.cs" />
     <Compile Include="Assets\Scripts\LogLineScript.cs" />
     <Compile Include="Assets\LeanTween\Testing\TestingDescr.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="Assets\Scripts\StandCS\Models\LogGroup.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralSequencer.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathBezier2d.cs" />
+    <Compile Include="Assets\Scripts\StandCS\GameObject\LogPanelGameObject.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplinePerformance.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralEasingTypes.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
@@ -99,7 +99,6 @@
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
     <Compile Include="Assets\Scripts\StandCS\SystemStateManager.cs" />
     <Compile Include="Assets\Scripts\NewScriptableObjectScript.cs" />
-    <Compile Include="Assets\Scripts\StandCS\Models\LogPanelGameObject.cs" />
     <Compile Include="Assets\Scripts\LogButtonScript.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplineTrack.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSpline.cs" />
@@ -120,6 +119,7 @@
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralSimpleUI.cs" />
     <Compile Include="Assets\Scripts\StandCS\Models\SpaceShipLog.cs" />
     <Compile Include="Assets\LeanTween\Testing\Testing243.cs" />
+    <Compile Include="Assets\Scripts\StandCS\GameObject\LogLineGO.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathBezier.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\LeanTween\Testing\Testing246.cs" />

@@ -21,7 +21,8 @@ public class LogNode
     /// <summary>
     /// The connections of the node
     /// </summary>
-    public List<LogNode> Connections;
+    public List<int> ConnectionNodes = new();
+    public List<int> ConnectionLines = new(); // 仅记录发起的线？ 收到的线可以另外放
 
     /// <summary>
     /// 是否已经被发现了 The discovered status of the node
@@ -37,6 +38,9 @@ public class LogNode
     /// 日志节点的缩放比例
     /// </summary>
     public float Scale;
+
+    // 是否是默认显示的节点
+    public bool IsRoot;
     
 }
 

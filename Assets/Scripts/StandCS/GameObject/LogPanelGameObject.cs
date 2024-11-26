@@ -6,20 +6,27 @@ public class BaseObject
 {
     public GameObject GameObject;
 
-    public virtual void Dispose()
+    public virtual void Destroy()
     {
         GameObject.Destroy(GameObject);
     }
-
-
 }
-public class LogPanelGO: BaseObject
+
+// public class BindAbleObject<T>: BaseObject
+// {
+//     public T Data;
+
+//     public void Bind(T data) 
+// }
+
+
+public class LogNodeGO : BaseObject
 {
     // 给我乖乖听话 自己去注册一下
     public GameObject LogPanel;
     public LogMono LogMono;
 
-    public LogNode LogNode;
+    public LogNode LogNode; // 别人不许乱动
 
     public void SetTitle(string text)
     {
@@ -30,17 +37,30 @@ public class LogPanelGO: BaseObject
         LogMono.UpdateInfo(); // lazy撕烤
         return LogNode;
     }
-    public LogPanelGO()
+    public LogNodeGO()
     {
         LogPanel = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/LogTemplate"));
-        LogMono = LogPanel.GetComponent<LogMono>();      
+        LogMono = LogPanel.GetComponent<LogMono>();
 
 
-        LogPanel.transform.SetParent(UIManager.Instance.LogPanelHud.transform);  
+        LogPanel.transform.SetParent(UIManager.Instance.LogPanelHud.transform);
 
         LogPanel.transform.localPosition = new Vector3(0, 0, 0);
-        LogNode = new LogNode();
+
         LogMono.LoglineGO = this;
+
+
+    }
+
+    public LogNodeGO Bind(LogNode logNode)
+    {
+        LogNode = logNode;
+
+        SetTitle(logNode.Name);
+
+        LogPanel.transform.localPosition = new Vector3(logNode.Position.X, logNode.Position.Y, 0);
+    
+        return this;
     }
 
 }

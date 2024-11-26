@@ -8,6 +8,9 @@
 // }
 
 public record LogLine {
+
+    public int Id;
+
     // public System.Numerics.Vector2 Start, End;
 
     // Log的起点和终点节点

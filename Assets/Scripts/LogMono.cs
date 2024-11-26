@@ -23,7 +23,7 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
 
     public bool Selected = false;
 
-    public LogPanelGO LoglineGO;
+    public LogNodeGO LoglineGO;
 
     Sprite ok ;
     Sprite ques ;
@@ -71,9 +71,11 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
         // 在这里实现连线逻辑
         // 例如，可以使用LineRenderer组件来绘制连线
 
-        var line = new LoglineGO();
+        SpaceShipLoggerSystem.CreateLine(log1.LoglineGO, log2.LoglineGO);
 
-        line.BindLogNodes(log1.LoglineGO, log2.LoglineGO);
+        // var line = new LogLineGO();
+
+        // line.BindLogNodes(log1.LoglineGO, log2.LoglineGO);
         
     }
 
