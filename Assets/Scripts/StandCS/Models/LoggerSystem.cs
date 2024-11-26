@@ -51,6 +51,7 @@ public static class SpaceShipLoggerSystem
         SpaceShipLog.LogLines.Add(logLine);
         var logLineGO = new LogLineGO().Bind(LogNodesGOs, logLine);
         LogLineGOs.Add(logLineGO);
+        logLineGO.SyncNode();// 可能要考虑协程
         return logLineGO;
     }
 
@@ -137,6 +138,14 @@ public static class SpaceShipLoggerSystem
         ApplyToGame(SpaceShipLog);
     }
 
+    public static void Clear() 
+    {
+        LogNodesGOs.ForEach(s => s.Destroy());
+        LogLineGOs.ForEach(s => s.Destroy());
+        LogNodesGOs.Clear();
+        LogLineGOs.Clear();
+    }
+
 
     public static void ApplyToGame(SpaceShipLog spaceShipLog)
     {
@@ -146,7 +155,7 @@ public static class SpaceShipLoggerSystem
         }
         // 延时一帧
 
-        
+
 
         // 你不纯洁
         foreach (var logLine in spaceShipLog.LogLines)
