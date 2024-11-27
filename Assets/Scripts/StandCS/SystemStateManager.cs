@@ -13,4 +13,5 @@ public enum SystemMode {
     LookMode,
     DragMode,
     LineMode,
+    NodeEditMode,
 }

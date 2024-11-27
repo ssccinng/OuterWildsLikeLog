@@ -111,19 +111,21 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
         {
             // LogUIAnimator.AnimateScaleIn(gameObject, 0.5f);
 
-            animator.SetTrigger("ImageOut");
-            await Task.Delay(500);
-            if (!isUnkown)
-            {
-                InfoImage.sprite = ques;
-                isUnkown = true;
-            }
-            else
-            {
-                InfoImage.sprite = ok;
-                isUnkown = false;
-            }
-            animator.SetTrigger("ImageIn");
+            UIManager.Instance.SpaceShipFocusOnObj(this.gameObject);
+
+            // animator.SetTrigger("ImageOut");
+            // await Task.Delay(500);
+            // if (!isUnkown)
+            // {
+            //     InfoImage.sprite = ques;
+            //     isUnkown = true;
+            // }
+            // else
+            // {
+            //     InfoImage.sprite = ok;
+            //     isUnkown = false;
+            // }
+            // animator.SetTrigger("ImageIn");
         });
         var outlines = backGroundImage.GetComponents<Outline>();
         backOutline = outlines[0];
@@ -143,5 +145,19 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
 
         LoglineGO.LogNode.Position = new (rectTransform.localPosition.x, rectTransform.localPosition.y);
         
+    }
+
+    private void FocusOnNode()
+    {
+        
+
+        // // 获取相机
+        // Camera mainCamera = Camera.main;
+        // if (mainCamera != null)
+        // {
+        //     // 将相机移动到节点位置
+        //     Vector3 targetPosition = new Vector3(rectTransform.position.x, rectTransform.position.y, mainCamera.transform.position.z);
+        //     mainCamera.transform.position = targetPosition;
+        // }
     }
 }

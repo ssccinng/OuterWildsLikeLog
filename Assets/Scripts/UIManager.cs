@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
 
 
     public GameObject SpaceShipLog;
+    public RectTransform RectTransformSpace;
+    public GameObject SpaceShipLogScale;
     public GameObject LogPanelHud;
     public GameObject LineHud;
     public Animator animator; 
@@ -86,6 +88,7 @@ public class UIManager : MonoBehaviour
     {
         SpaceShipLoggerSystem.GetSaves();
         SpaceShipLoggerSystem.Create();
+        RectTransformSpace = SpaceShipLog.GetComponent<RectTransform>();
         // animator.SetTrigger("SidePanelInTrigger");
         AddLogButton.onClick.AddListener(() =>
         {
@@ -161,7 +164,7 @@ public class UIManager : MonoBehaviour
             // when mouse wheel is scrolled, change SpaceShipLog scale
             if (Input.mouseScrollDelta.y != 0)
             {
-                var scale = SpaceShipLog.transform.localScale;
+                var scale = SpaceShipLogScale.transform.localScale;
                 var mutilplier = 1 + Input.mouseScrollDelta.y / 10;
                 Vector3 GetNewScale(Vector3 scale, float mutilplier)
                 {
@@ -171,21 +174,26 @@ public class UIManager : MonoBehaviour
                     {
                         if (scale.x > 4)
                         {
-                            return scale;
+                            return Vector3.one * 4;
                         }
                     }
                     else
                     { // mutilplier < 1
-                        if (scale.x < 0.3)
+                        if (scale.x < 0.3f)
                         {
-                            return scale;
+                            return  Vector3.one * 0.3f;
                         }
                     }
                     return new Vector3(scale.x * mutilplier, scale.y * mutilplier, scale.z);
                 }
 
                 var newScale = GetNewScale(scale, mutilplier);
-                 LeanTween.scale(SpaceShipLog, newScale, 0.1f).setEase(LeanTweenType.easeOutQuad);
+                LeanTween.scale(SpaceShipLogScale, newScale, 0.1f).setEase(LeanTweenType.easeOutQuad);
+
+                // Vector3 mousePosition = Input.mousePosition;
+                // Vector3 objectPosition = SpaceShipLog.transform.position;
+                // Vector3 offset = objectPosition - Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.WorldToScreenPoint(objectPosition).z));
+                 
                 // SpaceShipLog.transform.localScale = newScale;
             }
 
@@ -193,6 +201,17 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void SpaceShipFocusOnObj(GameObject obj) 
+    {
+        var rectSpace = SpaceShipLogScale.GetComponent<RectTransform>();
+        var rectObj = obj.GetComponent<RectTransform>();
 
+        var target = -rectObj.localPosition ;
+
+
+        LeanTween.moveLocal(SpaceShipLog, target, 0.5f).setEase(LeanTweenType.easeInOutQuad);
+        LeanTween.scale(SpaceShipLogScale, Vector3.one * 1.5f / rectObj.localScale.x, 0.5f).setEase(LeanTweenType.easeInCubic);
+
+    }
 
 }

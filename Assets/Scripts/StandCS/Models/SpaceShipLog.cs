@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Threading;
 using Unity.Mathematics;
+
+using UnityEngine;
 public struct LineInfo
 {
     public Vector2 Start, End;
@@ -49,7 +50,7 @@ public static class LogHelper
         // Create a new node
     }
 
-    public static LogNode? GetNodeById(IEnumerable<LogNode> logNodes, int id) 
+    public static LogNode? GetNodeById(IEnumerable<LogNode> logNodes, int id)
     {
         return logNodes.FirstOrDefault(s => s.Id == id);
     }
@@ -68,38 +69,43 @@ public static class LogHelper
         };
     }
 
-    public static LineInfo GetLinePosition(LogNode startNode, LogNode endNode) 
+    public static LineInfo GetLinePosition(LogNode startNode, LogNode endNode)
     {
-        return new LineInfo 
+        return new LineInfo
         {
             Start = startNode.Position,
             End = endNode.Position,
         };
     }
     // todo: 还需要计算箭头在哪
-    public static LineImageInfo GetLineImageInfo(Vector2 start, Vector2 end) {
-        return new LineImageInfo {
-             Position = start,
-             Width = Vector2.Distance(start, end),
+    public static LineImageInfo GetLineImageInfo(Vector2 start, Vector2 end)
+    {
+        return new LineImageInfo
+        {
+            Position = start,
+            Width = Vector2.Distance(start, end),
 
 
         };
 
     }
-public static LineImageInfo GetLineImageInfo(LogNode start, LogNode end) {
-    UnityEngine.Debug.Log($"start: {start.Position}, end: {end.Position}");
-        return new LineImageInfo {
+    public static LineImageInfo GetLineImageInfo(LogNode start, LogNode end)
+    {
+        UnityEngine.Debug.Log($"start: {start.Position}, end: {end.Position}");
+        //  var dd = -math.atan2(end.Position.x - start.Position.x, end.Position.y - start.Position.y) * 180 / math.PI;
+        return new LineImageInfo
+        {
             //  Position = start,
             //  Width = Vector2.Distance(start, end),
 
             Position = start.Position,
             Width = Vector2.Distance(start.Position, end.Position),
-            RotationZ = math.atan2(end.Position.Y - start.Position.Y, end.Position.X - start.Position.X) * 180 / math.PI,
+            // RotationZ = math.atan2(end.Position.x - start.Position.x, end.Position.y - start.Position.y) * 180 / math.PI,
+            RotationZ = (-math.atan2(end.Position.x - start.Position.x, end.Position.y - start.Position.y) * 180) / math.PI + 90,
 
-             
         };
 
     }
-    
+
 
 }

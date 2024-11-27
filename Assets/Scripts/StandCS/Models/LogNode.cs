@@ -32,7 +32,7 @@ public class LogNode
     /// <summary>
     /// 日志节点在面板中的坐标
     /// </summary>
-    public System.Numerics.Vector2 Position;
+    public Vector3 Position;
     
     /// <summary>
     /// 日志节点的缩放比例

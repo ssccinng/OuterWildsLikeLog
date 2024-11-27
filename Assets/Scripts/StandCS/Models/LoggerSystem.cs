@@ -26,7 +26,8 @@ public static class SpaceShipLoggerSystem
             Description = "This is a node",
             // Connections = new System.Collections.Generic.List<LogNode>(),
             IsDiscovered = false,
-            Position = new(0, 0)
+            Position = -UIManager.Instance.RectTransformSpace.localPosition,
+            Scale = 1,
         };
 
         SpaceShipLog.LogNodes.Add(node);
@@ -113,18 +114,28 @@ public static class SpaceShipLoggerSystem
 
     public static void Load(string name)
     {
-
+        if (SpaceShipLog != null)
+        {
+            // todo: 清空
+            Clear();
+        }
         SpaceShipLog = JsonConvert.DeserializeObject<SpaceShipLog>(File.ReadAllText(
             $"{savePath}/{name}.json"
-            ));
+            ), new JsonSerializerSettings() { ReferenceLoopHandling =  ReferenceLoopHandling.Ignore }
+          );
         ApplyToGame(SpaceShipLog);
 
     }
 
     public static void Save(string name)
     {
-
-        File.WriteAllText($"{savePath}/{name}.json", JsonConvert.SerializeObject(SpaceShipLog));
+LogNodesGOs.ForEach(s => s.LogMono.UpdateInfo());
+        File.WriteAllText($"{savePath}/{name}.json",
+         JsonConvert.SerializeObject(SpaceShipLog,
+          new JsonSerializerSettings() { ReferenceLoopHandling =  ReferenceLoopHandling.Ignore }
+          )
+          
+          );
 
     }
     // 创建一个新的
@@ -133,6 +144,7 @@ public static class SpaceShipLoggerSystem
         if (SpaceShipLog != null)
         {
             // todo: 清空
+            Clear();
         }
         SpaceShipLog = new();
         ApplyToGame(SpaceShipLog);

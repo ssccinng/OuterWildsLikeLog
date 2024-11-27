@@ -43,7 +43,7 @@ public class LogLineGO : BaseObject
 
 
         // 3. 设置连线的位置和宽度
-        rectTransform.localPosition = new Vector3(data.Position.X, data.Position.Y, 0);
+        rectTransform.localPosition = data.Position;
         rectTransform.sizeDelta = new Vector2(data.Width, 10);
 
         // 4. 设置连线的旋转角度

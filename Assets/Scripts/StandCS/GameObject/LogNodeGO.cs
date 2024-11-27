@@ -28,6 +28,8 @@ public class LogNodeGO : BaseObject
 
     public LogNode LogNode; // 别人不许乱动
 
+    RectTransform rectTransform;
+
     public void SetTitle(string text)
     {
         LogMono.LogTitle.text = text;
@@ -39,9 +41,12 @@ public class LogNodeGO : BaseObject
     }
     public LogNodeGO()
     {
-        LogPanel = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/LogTemplate"));
+        GameObject = LogPanel = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/LogTemplate"));
         LogMono = LogPanel.GetComponent<LogMono>();
 
+
+
+        rectTransform = LogPanel.GetComponent<RectTransform>();
 
         LogPanel.transform.SetParent(UIManager.Instance.LogPanelHud.transform);
 
@@ -58,7 +63,9 @@ public class LogNodeGO : BaseObject
 
         SetTitle(logNode.Name);
 
-        LogPanel.transform.localPosition = new Vector3(logNode.Position.X, logNode.Position.Y, 0);
+        LogPanel.transform.localPosition = logNode.Position;
+
+        rectTransform.localScale = new Vector3(logNode.Scale, logNode.Scale, 1);
     
         return this;
     }
