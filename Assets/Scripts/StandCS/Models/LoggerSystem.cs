@@ -56,6 +56,7 @@ public static class SpaceShipLoggerSystem
         return logLineGO;
     }
 
+
     public static void DeleteNode(LogNodeGO logNodeGO)
     {
         SpaceShipLog.LogNodes.Remove(logNodeGO.GetLogNode());
@@ -79,6 +80,17 @@ public static class SpaceShipLoggerSystem
     {
         return logNodes.Find(s => s.Id == id);
     }
+
+    public static LogGroup GetLogGroupById(List<LogGroup> logGroups, int id)
+    {
+        return logGroups.Find(s => s.Id == id);
+    }
+
+    public static Func<int, LogGroup> GetLogGroupById(List<LogGroup> logGroups) => (int id) =>
+    {
+        return logGroups.Find(s => s.Id == id);
+    };
+
     // public static Func<int, LogLineGO> GetLogLineGOById(List<LogLineGO> logLineGOs)
     // {
     //     return id => logLineGOs.Find(s => s.Logline.Id == id);

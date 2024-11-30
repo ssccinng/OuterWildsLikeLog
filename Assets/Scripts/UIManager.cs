@@ -16,7 +16,9 @@ public class UIManager : MonoBehaviour
     public GameObject SpaceShipLogScale;
     public GameObject LogPanelHud;
     public GameObject LineHud;
-    public Animator animator; 
+    public Animator animator;
+
+    public LogEditScript LogEditScript;
 
     // public GameManager LogPanel;
     public TextMeshProUGUI LogTitleInputField;
@@ -56,30 +58,38 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public UnityAction<bool> CheckModeChange(SystemMode mode) {
-        return mode switch {
-            SystemMode.LookMode => (b) => 
+    public UnityAction<bool> CheckModeChange(SystemMode mode)
+    {
+        return mode switch
+        {
+            SystemMode.LookMode => (b) =>
             {
-                if (b) {
-                SystemStateManager.SystemMode = mode; DragMode.isOn = LineMode.isOn = false; 
+                if (b)
+                {
+                    SystemStateManager.SystemMode = mode; DragMode.isOn = LineMode.isOn = false;
 
                 }
-            // LookMode.isOn = true;
-            },
-            SystemMode.LineMode => (b) => 
+                // LookMode.isOn = true;
+            }
+            ,
+            SystemMode.LineMode => (b) =>
             {
-                if (b) {
-                SystemStateManager.SystemMode = mode; DragMode.isOn = LookMode.isOn = false; 
+                if (b)
+                {
+                    SystemStateManager.SystemMode = mode; DragMode.isOn = LookMode.isOn = false;
                 }
-            // LineMode.isOn = true;
-            },
-            _ => (b) => 
+                // LineMode.isOn = true;
+            }
+            ,
+            _ => (b) =>
             {
-                if (b) {
-                SystemStateManager.SystemMode = mode; LineMode.isOn = LookMode.isOn = false; 
+                if (b)
+                {
+                    SystemStateManager.SystemMode = mode; LineMode.isOn = LookMode.isOn = false;
                 }
-            // DragMode.isOn = true;
-            },
+                // DragMode.isOn = true;
+            }
+            ,
         };
     }
 
@@ -123,21 +133,35 @@ public class UIManager : MonoBehaviour
 
         TogglePanelButton.onClick.AddListener(() =>
         {
-            if (panelExpanded)
-            {
-                animator.SetTrigger("SideOut");
-                panelExpanded = false;
-            }
-            else
-            {
-                animator.SetTrigger("SideIn");
-                panelExpanded = true;
-            }
+            ToggleSidePanel();
         });
 
         DragMode.onValueChanged.AddListener(CheckModeChange(SystemMode.DragMode));
         LineMode.onValueChanged.AddListener(CheckModeChange(SystemMode.LineMode));
         LookMode.onValueChanged.AddListener(CheckModeChange(SystemMode.LookMode));
+    }
+
+    private void ToggleSidePanel()
+    {
+        if (panelExpanded)
+        {
+            animator.SetTrigger("SideOut");
+            panelExpanded = false;
+        }
+        else
+        {
+            animator.SetTrigger("SideIn");
+            panelExpanded = true;
+        }
+    }
+
+    private void SetSidePanel(bool expanded)
+    {
+        if (expanded != panelExpanded)
+        {
+            ToggleSidePanel();
+        }
+
     }
 
     // Update is called once per frame
@@ -147,7 +171,7 @@ public class UIManager : MonoBehaviour
 
     }
 
-    
+
     void DragSpaceShipLog()
     {
         if (IsDraggingSpaceShipLog)
@@ -181,7 +205,7 @@ public class UIManager : MonoBehaviour
                     { // mutilplier < 1
                         if (scale.x < 0.3f)
                         {
-                            return  Vector3.one * 0.3f;
+                            return Vector3.one * 0.3f;
                         }
                     }
                     return new Vector3(scale.x * mutilplier, scale.y * mutilplier, scale.z);
@@ -193,7 +217,7 @@ public class UIManager : MonoBehaviour
                 // Vector3 mousePosition = Input.mousePosition;
                 // Vector3 objectPosition = SpaceShipLog.transform.position;
                 // Vector3 offset = objectPosition - Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.WorldToScreenPoint(objectPosition).z));
-                 
+
                 // SpaceShipLog.transform.localScale = newScale;
             }
 
@@ -201,17 +225,24 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void SpaceShipFocusOnObj(GameObject obj) 
+    public void SpaceShipFocusOnObj(GameObject obj)
     {
         var rectSpace = SpaceShipLogScale.GetComponent<RectTransform>();
         var rectObj = obj.GetComponent<RectTransform>();
 
-        var target = -rectObj.localPosition ;
+        var target = -rectObj.localPosition;
 
 
         LeanTween.moveLocal(SpaceShipLog, target, 0.5f).setEase(LeanTweenType.easeInOutQuad);
         LeanTween.scale(SpaceShipLogScale, Vector3.one * 1.5f / rectObj.localScale.x, 0.5f).setEase(LeanTweenType.easeInCubic);
 
+    }
+
+    public void EditLog(LogNodeGO logNodeGO)
+    {
+        SpaceShipFocusOnObj(logNodeGO.LogPanel);
+        LogEditScript.ShowLogEdit(logNodeGO);
+        SetSidePanel(false);
     }
 
 }

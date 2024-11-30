@@ -33,7 +33,22 @@ public class LogNodeGO : BaseObject
     public void SetTitle(string text)
     {
         LogMono.LogTitle.text = text;
+        LogNode.Name = text;
+
     }
+    public void SetScale(float scale)
+    {
+        rectTransform.localScale = new Vector3(scale, scale, 1);
+        LogNode.Scale = scale;
+    }
+
+    public void SetColor(Color color)
+    {
+        LogMono.backGroundImage.color = color;
+        LogNode.Color = color;
+    }
+
+
     public LogNode GetLogNode()
     {
         LogMono.UpdateInfo(); // lazy撕烤
@@ -52,7 +67,7 @@ public class LogNodeGO : BaseObject
 
         LogPanel.transform.localPosition = new Vector3(0, 0, 0);
 
-        LogMono.LoglineGO = this;
+        LogMono.LogNodeGO = this;
 
 
     }
@@ -66,6 +81,8 @@ public class LogNodeGO : BaseObject
         LogPanel.transform.localPosition = logNode.Position;
 
         rectTransform.localScale = new Vector3(logNode.Scale, logNode.Scale, 1);
+
+        SetColor(logNode.Color);
     
         return this;
     }

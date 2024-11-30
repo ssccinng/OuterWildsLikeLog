@@ -25,9 +25,9 @@ public struct LineImageInfo
 
 public class SpaceShipLog
 {
-    static int _uniqueId = 0;
-    public static int GetUniqueId() => Interlocked.Increment(ref _uniqueId);
-    public static void ResetUniqueId() => _uniqueId = 0;
+    public int _uniqueId = 0;
+    public int GetUniqueId() => Interlocked.Increment(ref _uniqueId);
+    public void ResetUniqueId() => _uniqueId = 0;
     // 日志组记录
     public List<LogGroup> LogGroups = new();
 
@@ -45,29 +45,6 @@ public class SpaceShipLog
 public static class LogHelper
 {
 
-    public static void CreateNode(string name, string description)
-    {
-        // Create a new node
-    }
-
-    public static LogNode? GetNodeById(IEnumerable<LogNode> logNodes, int id)
-    {
-        return logNodes.FirstOrDefault(s => s.Id == id);
-    }
-
-    public static LogLine? CreateLogLine(LogNode startNode, LogNode endNode)
-    {
-        // 照道理来说 这里不会有null? 或者有null也不该这么处理
-        if (startNode is null || endNode is null)
-        {
-            return null;
-        }
-        return new LogLine
-        {
-            LogIdStart = startNode.Id,
-            LogIdEnd = endNode.Id
-        };
-    }
 
     public static LineInfo GetLinePosition(LogNode startNode, LogNode endNode)
     {

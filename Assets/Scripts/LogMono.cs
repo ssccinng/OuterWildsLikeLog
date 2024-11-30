@@ -23,7 +23,7 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
 
     public bool Selected = false;
 
-    public LogNodeGO LoglineGO;
+    public LogNodeGO LogNodeGO;
 
     Sprite ok ;
     Sprite ques ;
@@ -71,7 +71,7 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
         // 在这里实现连线逻辑
         // 例如，可以使用LineRenderer组件来绘制连线
 
-        SpaceShipLoggerSystem.CreateLine(log1.LoglineGO, log2.LoglineGO);
+        SpaceShipLoggerSystem.CreateLine(log1.LogNodeGO, log2.LogNodeGO);
 
         // var line = new LogLineGO();
 
@@ -111,7 +111,7 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
         {
             // LogUIAnimator.AnimateScaleIn(gameObject, 0.5f);
 
-            UIManager.Instance.SpaceShipFocusOnObj(this.gameObject);
+            UIManager.Instance.EditLog(LogNodeGO);
 
             // animator.SetTrigger("ImageOut");
             // await Task.Delay(500);
@@ -143,7 +143,7 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
 
     public void UpdateInfo() {
 
-        LoglineGO.LogNode.Position = new (rectTransform.localPosition.x, rectTransform.localPosition.y);
+        LogNodeGO.LogNode.Position = new (rectTransform.localPosition.x, rectTransform.localPosition.y);
         
     }
 

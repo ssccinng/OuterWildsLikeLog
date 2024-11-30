@@ -19,15 +19,16 @@ public class DragUI : MonoBehaviour, IPointerClickHandler,
         if (eventData.button == PointerEventData.InputButton.Left)
         {
 
-
+            Debug.Log("Left Click");
             UIManager.Instance.IsDraggingSpaceShipLog = false;
             gx = true;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rectTransform,
-            eventData.position,
-            eventData.pressEventCamera,
-            out offset
-        );
+                rectTransform,
+                eventData.position,
+                eventData.pressEventCamera,
+                out offset
+            );
+
         }
 
     }
@@ -57,7 +58,7 @@ public class DragUI : MonoBehaviour, IPointerClickHandler,
             );
 
             // 设置 UI 元素的 anchoredPosition
-            rectTransform.anchoredPosition = localPosition - offset;
+            rectTransform.anchoredPosition = localPosition - (offset * rectTransform.localScale.x);
 
         }
 
