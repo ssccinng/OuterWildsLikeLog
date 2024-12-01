@@ -68,7 +68,7 @@ public static class LogHelper
     }
     public static LineImageInfo GetLineImageInfo(LogNode start, LogNode end)
     {
-        UnityEngine.Debug.Log($"start: {start.Position}, end: {end.Position}");
+        // UnityEngine.Debug.Log($"start: {start.Position}, end: {end.Position}");
         //  var dd = -math.atan2(end.Position.x - start.Position.x, end.Position.y - start.Position.y) * 180 / math.PI;
         return new LineImageInfo
         {

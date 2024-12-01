@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 
 public static class SpaceShipLoggerSystem
@@ -16,6 +17,18 @@ public static class SpaceShipLoggerSystem
 
     public static List<LogNodeGO> LogNodesGOs = new();
     public static List<LogLineGO> LogLineGOs = new();
+
+
+    public static void HeroToZero() {
+        LogLineGOs.ForEach(s => s.GameObject.SetActive(false));
+        LogNodesGOs.Where(s => !s.LogNode.IsRoot).ToList().ForEach(s => s.GameObject.SetActive(false));
+    }
+
+    public static void AllShow() {
+        LogLineGOs.ForEach(s => s.GameObject.SetActive(true));
+        LogNodesGOs.ForEach(s => s.GameObject.SetActive(true));
+    }
+
 
     public static LogNodeGO CreateNode(string name)
     {
@@ -95,6 +108,13 @@ public static class SpaceShipLoggerSystem
     // {
     //     return id => logLineGOs.Find(s => s.Logline.Id == id);
     // }
+
+     public static LogLineGO GetLogLineGOById(int id)
+    {
+        return LogLineGOs.Find(s => s.Logline.Id == id);
+    }
+
+
     public static Func<int, LogLineGO> GetLogLineGOById(List<LogLineGO> logLineGOs) => (int id) =>
     {
         return logLineGOs.Find(s => s.Logline.Id == id);

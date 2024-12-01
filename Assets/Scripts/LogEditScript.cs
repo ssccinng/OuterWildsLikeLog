@@ -10,6 +10,8 @@ public class LogEditScript : MonoBehaviour
     public TMP_InputField ScaleText;
     public ColorPicker ColorPicker;
 
+    public Toggle IsRootLog;
+
 
     public LogNodeGO logNodeGO;
 
@@ -49,6 +51,11 @@ public class LogEditScript : MonoBehaviour
         {
             gameObject.SetActive(false);
         });
+
+        IsRootLog.onValueChanged.AddListener(delegate
+        {
+            logNodeGO.LogNode.IsRoot = IsRootLog.isOn;
+        });
     }
 
     public void ShowLogEdit(LogNodeGO logNodeGO)
@@ -58,6 +65,8 @@ public class LogEditScript : MonoBehaviour
         ScaleText.text = logNodeGO.LogNode.Scale.ToString();
 
         ColorPicker.SetColor(logNodeGO.LogNode.Color);
+
+        IsRootLog.isOn = logNodeGO.LogNode.IsRoot;
 
         gameObject.SetActive(true);
     }

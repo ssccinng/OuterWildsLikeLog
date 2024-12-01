@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
@@ -66,6 +67,45 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
 
     }
 
+    public void Expand()
+    {
+        // foreach (var logLineGO in LogNode.ConnectionLines)
+        // {
+        //     var logLine = SpaceShipLoggerSystem.GetLogLineGOById(logLineGO);
+        //     logLine.WhenEnable();
+
+        //     var logNodeGO = logLine.node2;
+
+        //     if (logNodeGO.GameObject.activeInHierarchy == false)
+        //     {
+        //         // 等待0.5秒
+
+        //         logNodeGO.WhenEnable();                
+        //     }
+        // }
+         StartCoroutine(ExpandCoroutine());
+    }
+
+    private IEnumerator ExpandCoroutine()
+    {
+        foreach (var logLineGO in LogNodeGO.LogNode.ConnectionLines)
+        {
+            var logLine = SpaceShipLoggerSystem.GetLogLineGOById(logLineGO);
+            logLine.WhenEnable();
+
+            var logNodeGO = logLine.node2;
+
+            if (!logNodeGO.GameObject.activeInHierarchy)
+            {
+                // 等待0.5秒
+                yield return new WaitForSeconds(0.5f);
+                logNodeGO.WhenEnable();
+            }
+            yield return new WaitForSeconds(1);
+
+        }
+    }
+
     private void DrawLineBetweenLogs(LogMono log1, LogMono log2)
     {
         // 在这里实现连线逻辑
@@ -110,9 +150,14 @@ public class LogMono : MonoBehaviour, IPointerClickHandler, IPointerExitHandler,
         LogMainButton.onClick.AddListener(async () =>
         {
             // LogUIAnimator.AnimateScaleIn(gameObject, 0.5f);
+            if (SystemStateManager.SystemMode == SystemMode.DragMode) 
+            {
+                UIManager.Instance.EditLog(LogNodeGO);
+            }
+            else if (SystemStateManager.SystemMode == SystemMode.LookMode) {
 
-            UIManager.Instance.EditLog(LogNodeGO);
-
+                Expand();
+            }
             // animator.SetTrigger("ImageOut");
             // await Task.Delay(500);
             // if (!isUnkown)

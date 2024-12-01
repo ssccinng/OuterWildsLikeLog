@@ -62,5 +62,12 @@ public class LogLineGO : BaseObject
         return this;
     }
 
+    public void WhenEnable()
+    {
+        GameObject.SetActive(true);
+        logLineScript.animator.enabled = true;
+        // logLineScript.animator.SetTrigger("Show");
+    }
+
 
 }

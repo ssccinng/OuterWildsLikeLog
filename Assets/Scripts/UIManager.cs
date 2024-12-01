@@ -31,6 +31,9 @@ public class UIManager : MonoBehaviour
     public Button SaveButton;
     public Button LoadButton;
     public Button TogglePanelButton;
+
+    public Button HeroToZeroButton;
+    public Button AllShowButton;
     #endregion
 
 
@@ -134,6 +137,16 @@ public class UIManager : MonoBehaviour
         TogglePanelButton.onClick.AddListener(() =>
         {
             ToggleSidePanel();
+        });
+
+        HeroToZeroButton.onClick.AddListener(() =>
+        {
+            SpaceShipLoggerSystem.HeroToZero();
+        });
+
+        AllShowButton.onClick.AddListener(() =>
+        {
+            SpaceShipLoggerSystem.AllShow();
         });
 
         DragMode.onValueChanged.AddListener(CheckModeChange(SystemMode.DragMode));

@@ -1,4 +1,6 @@
 
+using System.Collections;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -38,6 +40,7 @@ public class LogNodeGO : BaseObject
     }
     public void SetScale(float scale)
     {
+        Debug.Log("SetScale" + scale);
         rectTransform.localScale = new Vector3(scale, scale, 1);
         LogNode.Scale = scale;
     }
@@ -72,6 +75,16 @@ public class LogNodeGO : BaseObject
 
     }
 
+    public void WhenEnable()
+    {
+        GameObject.SetActive(true);
+        UIManager.Instance.SpaceShipFocusOnObj(LogPanel);
+        LogUIAnimator.AnimateScaleIn(GameObject, 0.5f);
+    }
+
+
+   
+
     public LogNodeGO Bind(LogNode logNode)
     {
         LogNode = logNode;
@@ -79,10 +92,16 @@ public class LogNodeGO : BaseObject
         SetTitle(logNode.Name);
 
         LogPanel.transform.localPosition = logNode.Position;
+        // Task.Run(async () =>
+        // {
+        //     await Task.Delay(100);
+        //            SetScale(logNode.Scale);
 
-        rectTransform.localScale = new Vector3(logNode.Scale, logNode.Scale, 1);
+        // });
 
         SetColor(logNode.Color);
+                   SetScale(logNode.Scale);
+        // LogUIAnimator.AnimateScaleIn(GameObject, 0.5f);
     
         return this;
     }

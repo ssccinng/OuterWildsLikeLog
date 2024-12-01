@@ -64,7 +64,8 @@ public class LogLineScript : MonoBehaviour, IPointerClickHandler, IPointerExitHa
             if (Input.GetKeyDown(KeyCode.Delete))
             {
                 // 删除连线
-                Destroy(gameObject);
+
+                SpaceShipLoggerSystem.DeleteLine(loglineGO);
             }
         }
 
